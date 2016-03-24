@@ -1,121 +1,126 @@
 <html>
   <head>
-      <div id="container" style="height: 520px; min-width: 310px; width: 800px; margin: 0 auto; text-align:center; line-height: 520px">
-    Downloading map...
-      </div>
-
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-      <script src="https://code.highcharts.com/maps/highmaps.js"></script>
-      <script src="https://code.highcharts.com/maps/modules/data.js"></script>
-      <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
-      <script src="https://code.highcharts.com/mapdata/countries/us/us-all-all.js"></script>
+      <style>
+        #container {
+          width:100%; height:100%; margin: 0 auto 0 auto; text-align:center; vertical-align:middle;
+        }
+      </style>
   </head>
   <body>
-      <script>
-      function drawMap () {
-      
-        Highcharts.data({
-          googleSpreadsheetKey: '1BIeem63c2fBHTHLgbv4pfAtluHjgd0o3afHIEZD-yhc',
-          //googleSpreadsheetWorksheet: 'Sheet1',
-          //firstRowAsNames: true,
-
-          parsed: function(columns) {
-             var data = [];
-            $.each(columns[0], function(i, code) {
-              data.push({
-                // the county code needs to be prefixed with "us-"
-                code: 'us-' + code,
-                name: columns[1][i],
-                value: parseFloat(columns[2][i])
-              })
-            });
-           
-            var countiesMap = Highcharts.geojson(Highcharts.maps['countries/us/us-all-all']),
-                lines = Highcharts.geojson(Highcharts.maps['countries/us/us-all-all'], 'mapline'),
-                options;
-
-            Highcharts.each(countiesMap, function (mapPoint) {
-              // add the state to the county name
-              mapPoint.name = mapPoint.name + ', ' + mapPoint.properties['hc-key'].substr(3, 2).toUpperCase();
-            });
-
-            options = {
-              chart: {
-                borderWidth: 1,
-                marginRight: 50 // for the legend
-              },
-
-              title: {
-                text: 'Bananas have a high concentration of vitamin K'
-              },
-
-              legend: {
-                title: {
-                    text: 'Vitamin K rate',
-                    style: {
-                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
-                    }
-                },
-                layout: 'vertical',
-                align: 'right',
-                floating: true,
-                valueDecimals: 0,
-                valueSuffix: '%',
-                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255, 255, 255, 0.85)',
-                symbolRadius: 0,
-                symbolHeight: 14
-              },
-
-              mapNavigation: {
-                enabled: true
-              },
-
-              colorAxis: {
-              },
-
-              plotOptions: {
-                mapline: {
-                    showInLegend: false,
-                    enableMouseTracking: false
-                }
-              },
-
-              series: [
-                {
-                  mapData: countiesMap,
-                  data: data,
-                  joinBy: ['hc-key', 'code'],
-                  name: 'Vitamin K rate',
-                  tooltip: {
-                    pointFormat: '{point.name}: {point.value}'
-                  },
-                  borderWidth: 0.5,
-                  states: {
-                      hover: {
-                        color: '#bada55'
-                      }
-                  }
-                }, 
-                {
-                  type: 'mapline',
-                  name: 'State borders',
-                  data: [lines[0]],
-                  color: 'white'
-                },
-                {
-                  type: 'mapline',
-                  name: 'Separator',
-                  data: [lines[1]],
-                  color: 'gray'
-                }
-              ]
-            };
-            // Instanciate the map
-            $('#container').highcharts('Map', options);
-          }
-      });
-    }
-    drawMap ();
-    </script>
+      <div id="container">
+        Downloading map...
+      </div>
   </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+  <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+  <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/mapdata/countries/us/us-all-all.js"></script>
+  <script>
+  function drawMap () {
+
+    Highcharts.data({
+      googleSpreadsheetKey: '1BIeem63c2fBHTHLgbv4pfAtluHjgd0o3afHIEZD-yhc',
+      //googleSpreadsheetWorksheet: 'Sheet1',
+      //firstRowAsNames: true,
+
+      parsed: function(columns) {
+        var data = [];
+        $.each(columns[0], function(i, code) {
+          data.push({
+            // the county code needs to be prefixed with "us-"
+            code: 'us-' + code,
+            name: columns[1][i],
+            value: parseFloat(columns[2][i])
+          })
+        });
+
+        var countiesMap = Highcharts.geojson(Highcharts.maps['countries/us/us-all-all']),
+        lines = Highcharts.geojson(Highcharts.maps['countries/us/us-all-all'], 'mapline'),
+        options;
+
+        Highcharts.each(countiesMap, function (mapPoint) {
+          // add the state to the county name
+          mapPoint.name = mapPoint.name + ', ' + mapPoint.properties['hc-key'].substr(3, 2).toUpperCase();
+        });
+
+        options = {
+          chart: {
+            borderWidth: 1,
+            marginRight: 50 // for the legend
+          },
+
+          title: {
+            text: 'Bananas have a high concentration of vitamin K'
+          },
+
+          legend: {
+            title: {
+              text: 'Vitamin K rate',
+              style: {
+                color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+              }
+            },
+            layout: 'vertical',
+            align: 'right',
+            floating: true,
+            valueDecimals: 0,
+            valueSuffix: '%',
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255, 255, 255, 0.85)',
+            symbolRadius: 0,
+            symbolHeight: 14
+          },
+
+          mapNavigation: {
+            enabled: true
+          },
+
+          colorAxis: {
+          },
+
+          plotOptions: {
+            mapline: {
+              showInLegend: false,
+              enableMouseTracking: false
+            }
+          },
+
+          series: [
+          {
+            animation: true,
+            mapData: countiesMap,
+            data: data,
+            joinBy: ['hc-key', 'code'],
+            name: 'Vitamin K rate',
+            tooltip: {
+              pointFormat: '{point.name}: {point.value}'
+            },
+            borderWidth: 0.5,
+            states: {
+              hover: {
+                color: '#bada55'
+              }
+            }
+          },
+          {
+            type: 'mapline',
+            name: 'State borders',
+            data: [lines[0]],
+            color: 'white'
+          },
+          {
+            type: 'mapline',
+            name: 'Separator',
+            data: [lines[1]],
+            color: 'gray'
+          }
+          ]
+        };
+        // Instanciate the map
+        $('#container').highcharts('Map', options);
+      }
+    });
+  }
+  drawMap ();
+</script>
 </html>

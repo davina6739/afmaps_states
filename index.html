@@ -2,7 +2,36 @@
   <head>
   </head>
     <title>Embedded GovRank Summary Chart</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css" rel="stylesheet" type="text/css">
+    <style>
+    #parent_frame {
+      position:absolute;
+      top:40px; right:0; bottom:0; left:0;
+      border: 0;
+      width:100%;
+      height:95%;
+    }
+    </style>
   <body>
-    <iframe src="counties.html"></iframe>
+    <div class="ui three item menu">
+      <a class="active item component_menu" data-attr="states.html">States</a>
+      <a class="item component_menu" data-attr="counties.html">Counties</a>
+      <a class="item component_menu" data-attr="counties.html">Cities</a>
+    </div>
+    <iframe id="parent_frame" src="states.html"></iframe>
   </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script>
+    $('.item.component_menu').on('click', function (){
+      if (!$(this).hasClass('active'))
+        {
+          var framesrc = $(this).attr('data-attr')
+          $('#parent_frame').attr('src', framesrc);
+        }
+      $('.item.component_menu').each(function()
+        {$(this).removeClass('active')
+      });
+      $(this).addClass('active');
+    });
+  </script>
 </html>
