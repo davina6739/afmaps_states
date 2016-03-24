@@ -1,0 +1,132 @@
+<html>
+
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="http://code.highcharts.com/maps/highmaps.js"></script>
+		<script src="http://code.highcharts.com/maps/modules/data.js"></script>
+		<script src="http://www.highcharts.com/samples/data/maps/us.js"></script>
+		<script src="http://code.highcharts.com/modules/exporting.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+	</head>
+
+	<body>
+
+		<div id="container">
+		  <div class="loading"> <i class="icon-spinner icon-spin icon-large"></i> Loading data ...</div>
+		</div>
+
+		<style>
+			#container {
+				width: 100%;
+				height: 100%;
+				margin: 0 auto;
+			}
+
+			.loading {
+		  		margin-top: 10em;
+		  		text-align: center;
+		  		color: gray;
+			}
+		</style>
+		<script src="base.js"></script>
+		<script>
+			function drawMap() {
+			  // Load the data from a Google Spreadsheet
+			  console.log(Highcharts.maps.us);
+			  Highcharts.data({
+			    googleSpreadsheetKey: '1epYBO8kJmQ6uvsX4y7GwDFYRpax6PTw7t91RNeoaWfs',
+			    firstRowAsNames: true,
+
+			    // custom handler when the spreadsheet is parsed
+			    parsed: function(columns) {
+
+			      // Read the columns into the data array
+			      var data = [];
+			      $.each(columns[0], function(i, code) {
+			        data.push({
+			          code: code,
+			          name: columns[1][i],
+			          value: parseFloat(columns[2][i]),
+			        })
+			      });
+
+
+			      // Initiate the chart
+			      $('#container').highcharts('Map', {
+			        chart: {
+			          borderWidth: 1
+			        },
+
+			        colors: ['rgba(19,64,117,0.05)', 'rgba(19,64,117,0.2)', 'rgba(19,64,117,0.4)',
+			          'rgba(19,64,117,0.5)', 'rgba(19,64,117,0.6)', 'rgba(19,64,117,0.8)', 'rgba(19,64,117,1)'
+			        ],
+
+			        title: {
+			          text: 'Overall Percentile Rank by State'
+			        },
+			        subtitle: {
+			          text: '<i>Source: <a href="http://govrank.org/">govrank.org</a></i>'
+			        },
+
+			        mapNavigation: {
+			          enabled: true
+			        },
+
+			        legend: {
+			          title: {
+			            text: 'Percentile Rank',
+			            style: {
+			              color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+			            }
+			          },
+			          align: 'center',
+			          verticalAlign: 'bottom',
+			          floating: true,
+			          layout: 'horizontal',
+			          x: 190,
+			          valueDecimals: 0,
+			          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255, 255, 255, 0.85)',
+			          symbolRadius: 0,
+			          symbolHeight: 14
+			        },
+
+			        colorAxis: {
+			        },
+
+			        series: [{
+			          animation: true,
+			          data: data,
+			          mapData: Highcharts.maps.us,
+			          joinBy: 'code',
+			          animation: true,
+			          name: 'Overall Percentile Rank',
+			          states: {
+			            hover: {
+			              color: '#BADA55'
+			            }
+			          },
+			          dataLabels: {
+			            enabled: true,
+			            color: '#f4f5f9',
+			            format: '{point.name}',
+			            style: {
+			              fontStyle: 'maven pro',
+			              fontWeight: 'bold',
+			              textShadow: '0 0 1px black'
+			            }
+			          },
+			          tooltip: {
+			            pointFormat: '{point.name}: {point.value}'
+			          },
+			        }]
+			      });
+			    }
+			  });
+			}
+
+			drawMap();
+
+		</script>
+	</body>
+</html>
