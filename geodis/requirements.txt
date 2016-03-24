@@ -1,0 +1,6 @@
+aaargh==0.7.1
+geodis==2.0.9
+geohasher==0.1.dev0
+lxml==3.6.0
+redis==2.10.5
+upoints==0.12.2
