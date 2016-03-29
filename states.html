@@ -6,6 +6,7 @@
 		<script src="http://code.highcharts.com/maps/modules/data.js"></script>
 		<script src="http://www.highcharts.com/samples/data/maps/us.js"></script>
 		<script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
 	</head>
@@ -13,7 +14,7 @@
 	<body>
 
 		<div id="container">
-		  <div class="loading"> <i class="icon-spinner icon-spin icon-large"></i> Loading data ...</div>
+		  <div class="loading"> <i class="icon-spinner icon-spin icon-large"></i> <span class="caption">Loading data ...</span></div>
 		</div>
 
 		<style>
@@ -22,18 +23,19 @@
 				height: 100%;
 				margin: 0 auto;
 			}
-
 			.loading {
 		  		margin-top: 10em;
 		  		text-align: center;
 		  		color: gray;
+			}
+			.loading .caption {
+				margin-top:50px;
 			}
 		</style>
 		<script src="base.js"></script>
 		<script>
 			function drawMap() {
 			  // Load the data from a Google Spreadsheet
-			  console.log(Highcharts.maps.us);
 			  Highcharts.data({
 			    googleSpreadsheetKey: '1epYBO8kJmQ6uvsX4y7GwDFYRpax6PTw7t91RNeoaWfs',
 			    firstRowAsNames: true,
@@ -63,7 +65,7 @@
 			        ],
 
 			        title: {
-			          text: 'Overall Percentile Rank by State'
+			          text: 'States Covered by Overall Rank'
 			        },
 			        subtitle: {
 			          text: '<i>Source: <a href="http://govrank.org/">govrank.org</a></i>'

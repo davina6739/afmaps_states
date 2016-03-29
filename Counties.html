@@ -4,13 +4,22 @@
         #container {
           width:100%; height:100%; margin: 0 auto 0 auto; text-align:center; vertical-align:middle;
         }
+  			.loading {
+  		  		margin-top: 10em;
+  		  		text-align: center;
+  		  		color: gray;
+  			}
+  			.loading .caption {
+  				margin-top:50px;
+  			}
       </style>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css" rel="stylesheet" type="text/css">
       <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
   </head>
   <body>
       <div id="container">
-        Downloading map...
+        <div class="loading"> <i class="icon-spinner icon-spin icon-large"></i> <span class="caption">Loading data ...</span></div>
       </div>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -54,7 +63,7 @@
           },
 
           title: {
-            text: 'Bananas have a high concentration of vitamin K'
+            text: 'Counties Covered by Overall Rank'
           },
 
           legend: {

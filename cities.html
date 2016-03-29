@@ -4,13 +4,21 @@
         #container {
           width:100%; height:100%; margin: 0 auto 0 auto; text-align:center; vertical-align:middle;
         }
+  			.loading {
+  		  		margin-top: 10em;
+  		  		text-align: center;
+  		  		color: gray;
+  			}
+  			.loading .caption {
+  				margin-top:50px;
+  			}
       </style>
       <link rel="stylesheet" type="text/css" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
   </head>
   <body>
       <div id="container">
-        Downloading map...
+        <div class="loading"> <i class="icon-spinner icon-spin icon-large"></i> <span class="caption">Loading data ...</span></div>
       </div>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -39,31 +47,29 @@
           {
             var maxValue = 99;
             var bg = parseInt(parseFloat(columns[2][i]));
+            if (0<bg && bg<25)    var tempcolor = '#C4CEE6';
+            if (25<=bg && bg<50)  var tempcolor = '#94CBA9';
+            if (50<=bg && bg<75)  var tempcolor = '#4c73a1';
+            if (75<=bg && bg<100) var tempcolor = '#184a83';
+            else                  var tempcolor = '#EFEFFF';
+
             data.push({
               // the county code needs to be prefixed with "us-"
               name: columns[1][i],
               value: parseFloat(columns[2][i]),
               lat: columns[3][i],
               lon: columns[4][i],
+              color: tempcolor
             })
-            code.z = columns[2][i];
-
-            if (0<bg && bg<25)    code.color = '#C4CEE6';
-            if (25<=bg && bg<50)  code.color = '#94CBA9';
-            if (50<=bg && bg<75)  code.color = '#4c73a1';
-            if (75<=bg && bg<100) code.color = '#184a83';
-
           }
         });
-
-        console.log(data);
 
         var citiesMap = Highcharts.geojson(Highcharts.maps['countries/us/us-all']),
         options;
 
         options = {
           title: {
-              text: 'Highmaps lat/lon demo'
+              text: 'Cities Covered by Overall Rank'
           },
 
           tooltip: {
