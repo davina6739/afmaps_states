@@ -71,19 +71,20 @@
               },
           legend: {
             title: {
-              text: 'Overall Percentile Rank',
+              text: 'Percentile Rank',
               style: {
                 color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
               }
             },
-            layout: 'vertical',
-            align: 'right',
-            floating: true,
-            valueDecimals: 0,
-            valueSuffix: '%',
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255, 255, 255, 0.85)',
-            symbolRadius: 0,
-            symbolHeight: 14
+                align: 'center',
+                verticalAlign: 'bottom',
+                floating: true,
+                layout: 'horizontal',
+                x: 190,
+                valueDecimals: 0,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255, 255, 255, 0.85)',
+                symbolRadius: 0,
+                symbolHeight: 14
           },
 
           mapNavigation: {
