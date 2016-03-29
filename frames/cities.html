@@ -12,6 +12,9 @@
   			.loading .caption {
   				margin-top:50px;
   			}
+        .highcharts-legend {
+          display: none!important;
+        }
       </style>
       <link rel="stylesheet" type="text/css" href="../style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
@@ -70,9 +73,12 @@
 
         options = {
           title: {
-              text: 'Cities Covered by Overall Rank'
+              text: 'Overall Percentile Rank by City'
           },
-
+          subtitle: {
+                text: '<i>Source: <a href="http://govrank.org/">govrank.org</a></i>'
+              },
+              
           tooltip: {
               pointFormat: '{point.name} <br/>' +
                   'Overall Rank: {point.value}'
@@ -91,6 +97,8 @@
             enabled: true
           },
 
+             
+
           yAxis: {
               crosshair: {
                   zIndex: 5,
@@ -101,6 +109,9 @@
           },
 
           series: [{
+             legend: {
+                show:'false'
+              },
               animation: true,
               name: 'Basemap',
               mapData: Highcharts.maps['countries/us/us-all'],
@@ -118,6 +129,7 @@
               dataLabels: {
                   enabled: false,
                   format: '{point.name}'
+
               },
               name: 'Cities',
               data: data,
