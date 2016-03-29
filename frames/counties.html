@@ -63,12 +63,15 @@
           },
 
           title: {
-            text: 'Counties Covered by Overall Rank'
+            text: 'Overall Percentile Rank by County'
           },
-
+          
+          subtitle: {
+                text: '<i>Source: <a href="http://govrank.org/">govrank.org</a></i>'
+              },
           legend: {
             title: {
-              text: 'Vitamin K rate',
+              text: 'Overall Percentile Rank',
               style: {
                 color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
               }
@@ -103,7 +106,7 @@
             mapData: countiesMap,
             data: data,
             joinBy: ['hc-key', 'code'],
-            name: 'Vitamin K rate',
+            name: 'Overall Percentile Rank',
             tooltip: {
               pointFormat: '{point.name}: {point.value}'
             },
