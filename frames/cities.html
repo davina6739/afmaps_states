@@ -126,15 +126,6 @@
         };
         // Instanciate the map
         $('#container').highcharts('Map', options);
-
-              $('#container').mouseout(function () {
-                  if (chart && chart.lab) {
-                      chart.lab.destroy();
-                      chart.lab = null;
-                  }
-              });
-
-
       }
     });
   }
